@@ -1,0 +1,183 @@
+package com.example.guessthenumber;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.airbnb.lottie.LottieAnimationView;
+
+import java.util.Random;
+
+import es.dmoral.toasty.Toasty;
+
+public class MainActivity extends AppCompatActivity {
+
+    TextView tv_timer,tv_timeout,tv_completed,tv_toptext;
+    public long time = 90000;
+    public CountDownTimer countDownTimer;
+    Button guess_btn,result_btn;
+    EditText input,result;
+    LottieAnimationView lottieAnimationView1,lottieAnimationView2,lottieAnimationView3;
+    boolean timebool = true;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        requestWindowFeature( Window.FEATURE_NO_TITLE);
+        getWindow().setFlags( WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(R.layout.activity_main);
+
+        String name = getIntent().getStringExtra("name");
+
+        tv_timer = findViewById(R.id.tv_timer);
+        tv_toptext = findViewById(R.id.tv_toptext);
+        tv_toptext.setText(name);
+        input = findViewById(R.id.et_input);
+        guess_btn = findViewById(R.id.bt_guess);
+        result = findViewById(R.id.et_result);
+        result_btn = findViewById(R.id.bt_results);
+        tv_completed = findViewById(R.id.completed_text);
+        tv_timeout = findViewById(R.id.timeout_text);
+        lottieAnimationView1 = findViewById(R.id.lottie_animation_one);
+        lottieAnimationView2 = findViewById(R.id.lottie_animation_two);
+        lottieAnimationView3 = findViewById(R.id.lottie_animation_three);
+
+        Random r = new Random();
+        int low = 1;
+        int high = 100;
+        final int resultcode = r.nextInt(high-low) + low;
+        result.setText("Right Answer  -  "+resultcode);
+        Log.d("CODE ---- "," here it is   ---    "+resultcode);
+
+        countDownTimer = new CountDownTimer(time, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                time = millisUntilFinished;
+                updatetimer();
+            }
+
+            @Override
+            public void onFinish() {
+                if (timebool){
+                    tv_timer.setVisibility(View.INVISIBLE);
+                    lottieAnimationView1.setVisibility(View.INVISIBLE);
+                    lottieAnimationView2.setVisibility(View.VISIBLE);
+                    guess_btn.setVisibility(View.INVISIBLE);
+                    result_btn.setVisibility(View.VISIBLE);
+                    result.setVisibility(View.VISIBLE);
+                    input.setVisibility(View.INVISIBLE);
+                    tv_timeout.setVisibility(View.VISIBLE);
+                }
+            }
+        }.start();
+
+        guess_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean valid = validate();
+                if(valid){
+                    String str = input.getText().toString().trim();
+                    int input2 = Integer.parseInt(str);
+                    if (input2 == resultcode){
+                        Toasty.success(MainActivity.this,"Right Guess" , Toast.LENGTH_SHORT).show();
+                        tv_timer.setVisibility(View.INVISIBLE);
+                        lottieAnimationView1.setVisibility(View.INVISIBLE);
+                        lottieAnimationView3.setVisibility(View.VISIBLE);
+                        guess_btn.setVisibility(View.INVISIBLE);
+                        result_btn.setVisibility(View.VISIBLE);
+                        result.setVisibility(View.VISIBLE);
+                        tv_completed.setVisibility(View.VISIBLE);
+                        input.setVisibility(View.INVISIBLE);
+                        timebool = false;
+                    }
+                    else {
+                        Toasty.error(MainActivity.this,"Wrong Guess" , Toast.LENGTH_SHORT).show();
+                        input.setText("");
+                    }
+                }
+            }
+        });
+
+        result_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,Dashboard.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+    }
+
+    private boolean validate() {
+        String in = input.getText().toString().trim();
+        if (in.isEmpty()) {
+            input.setError("Could not be empty");
+            input.requestFocus();
+            input.setText("");
+            return false;
+        }
+        else if (Integer.parseInt(in)<1) {
+            input.setError("Must be atleast 1");
+            input.requestFocus();
+            input.setText("");
+            return false;
+        }
+        else if (Integer.parseInt(in)>100){
+            input.setError("Must be less then 101");
+            input.requestFocus();
+            input.setText("");
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    private void updatetimer() {
+        int minutes = (int) time / 60000;
+        int seconds = (int) time % 60000 / 1000;
+
+        String timelefttext;
+        timelefttext = "" + minutes;
+        timelefttext += ":";
+        if (seconds < 10) timelefttext += "0";
+        timelefttext += seconds;
+
+        tv_timer.setText(timelefttext);
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Exit");
+        builder.setIcon(R.drawable.ic_baseline_account_circle_24);
+        builder.setMessage("Do You Want to Exit")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+}
