@@ -25,7 +25,6 @@
 
     <RelativeLayout
         android:id="@+id/name_logo"
-        android:layout_marginBottom="20dp"
         android:layout_above="@+id/layout_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -44,7 +43,7 @@
 
     <RelativeLayout
         android:id="@+id/layout_name"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="20dp"
         android:layout_above="@+id/bottom_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -66,6 +65,17 @@
             android:hint="Enter Name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/change_limit_tv"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/et_input"
+            android:textSize="16sp"
+            android:textColor="@color/colorAccent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Limits ( 1 - 100 )"/>
 
     </RelativeLayout>
 

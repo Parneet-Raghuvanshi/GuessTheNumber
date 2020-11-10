@@ -11,6 +11,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import es.dmoral.toasty.Toasty;
@@ -19,6 +20,7 @@ public class Dashboard extends AppCompatActivity {
 
     EditText input;
     Button next;
+    TextView tv_chnage_limit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +29,12 @@ public class Dashboard extends AppCompatActivity {
         getWindow().setFlags( WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_dashboard);
 
+        ((MyApplication) getApplication()).setStart_lim("1");
+        ((MyApplication) getApplication()).setEnd_lim("100");
+
         next = findViewById(R.id.bt_start);
         input = findViewById(R.id.et_input);
+        tv_chnage_limit = findViewById(R.id.change_limit_tv);
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +51,22 @@ public class Dashboard extends AppCompatActivity {
                 }
             }
         });
+
+        tv_chnage_limit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Dashboard.this,SetLimits.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String start = ((MyApplication) getApplication()).getStart_lim();
+        String end = ((MyApplication) getApplication()).getEnd_lim();
+        tv_chnage_limit.setText("Limits ( "+start+" - "+end+" )");
     }
 
     private boolean validate() {

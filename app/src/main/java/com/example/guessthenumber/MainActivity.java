@@ -31,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
     EditText input,result;
     LottieAnimationView lottieAnimationView1,lottieAnimationView2,lottieAnimationView3;
     boolean timebool = true;
+    public int try_count = 0;
+    TextView tv_tryc;
+    String end;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         String name = getIntent().getStringExtra("name");
 
+        end = ((MyApplication) getApplication()).getEnd_lim();
         tv_timer = findViewById(R.id.tv_timer);
         tv_toptext = findViewById(R.id.tv_toptext);
         tv_toptext.setText(name);
@@ -53,12 +57,14 @@ public class MainActivity extends AppCompatActivity {
         lottieAnimationView1 = findViewById(R.id.lottie_animation_one);
         lottieAnimationView2 = findViewById(R.id.lottie_animation_two);
         lottieAnimationView3 = findViewById(R.id.lottie_animation_three);
+        tv_tryc = findViewById(R.id.try_count_tv);
+
 
         Random r = new Random();
         int low = 1;
-        int high = 100;
+        int high = Integer.parseInt(end);
         final int resultcode = r.nextInt(high-low) + low;
-        result.setText("Right Answer  -  "+resultcode);
+        result.setText("Number  -  "+resultcode);
         Log.d("CODE ---- "," here it is   ---    "+resultcode);
 
         countDownTimer = new CountDownTimer(time, 1000) {
@@ -91,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
                     String str = input.getText().toString().trim();
                     int input2 = Integer.parseInt(str);
                     if (input2 == resultcode){
+                        try_count++;
+                        tv_tryc.setText("Attempts - "+try_count);
                         Toasty.success(MainActivity.this,"Right Guess" , Toast.LENGTH_SHORT).show();
                         tv_timer.setVisibility(View.INVISIBLE);
                         lottieAnimationView1.setVisibility(View.INVISIBLE);
@@ -103,7 +111,15 @@ public class MainActivity extends AppCompatActivity {
                         timebool = false;
                     }
                     else {
-                        Toasty.error(MainActivity.this,"Wrong Guess" , Toast.LENGTH_SHORT).show();
+                        try_count++;
+                        tv_tryc.setText("Attempts - "+try_count);
+                        if (input2<resultcode){
+                            Toasty.error(MainActivity.this,"Wrong Guess\nThink Bigger" , Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            Toasty.error(MainActivity.this,"Wrong Guess\nThink Smaller" , Toast.LENGTH_SHORT).show();
+                        }
                         input.setText("");
                     }
                 }
@@ -126,18 +142,28 @@ public class MainActivity extends AppCompatActivity {
             input.setError("Could not be empty");
             input.requestFocus();
             input.setText("");
+            try_count++;
+            return false;
+        }
+        if (in.length()>5){
+            input.setError("Number is too large");
+            input.requestFocus();
+            input.setText("");
+            try_count++;
             return false;
         }
         else if (Integer.parseInt(in)<1) {
             input.setError("Must be atleast 1");
             input.requestFocus();
             input.setText("");
+            try_count++;
             return false;
         }
-        else if (Integer.parseInt(in)>100){
+        else if (Integer.parseInt(in)>Integer.parseInt(end)){
             input.setError("Must be less then 101");
             input.requestFocus();
             input.setText("");
+            try_count++;
             return false;
         }
         else {
