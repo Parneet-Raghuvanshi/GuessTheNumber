@@ -2,11 +2,16 @@ package com.example.guessthenumber;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -18,6 +23,16 @@ import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 
 import es.dmoral.toasty.Toasty;
@@ -34,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     public int try_count = 0;
     TextView tv_tryc;
     String end;
+    String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags( WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
-        String name = getIntent().getStringExtra("name");
+        name = getIntent().getStringExtra("name");
 
         end = ((MyApplication) getApplication()).getEnd_lim();
         tv_timer = findViewById(R.id.tv_timer);
@@ -85,6 +101,12 @@ public class MainActivity extends AppCompatActivity {
                     result.setVisibility(View.VISIBLE);
                     input.setVisibility(View.INVISIBLE);
                     tv_timeout.setVisibility(View.VISIBLE);
+                    Date c = Calendar.getInstance().getTime();
+                    System.out.println("Current time => " + c);
+                    SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+                    String formattedDate = df.format(c);
+                    String older = readSavedData();
+                    saveData(name,formattedDate,String.valueOf(try_count),"F",older);
                 }
             }
         }.start();
@@ -109,6 +131,12 @@ public class MainActivity extends AppCompatActivity {
                         tv_completed.setVisibility(View.VISIBLE);
                         input.setVisibility(View.INVISIBLE);
                         timebool = false;
+                        Date c = Calendar.getInstance().getTime();
+                        System.out.println("Current time => " + c);
+                        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+                        String formattedDate = df.format(c);
+                        String older = readSavedData();
+                        saveData(name,formattedDate,String.valueOf(try_count),"T",older);
                     }
                     else {
                         try_count++;
@@ -129,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
         result_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this,Dashboard.class);
+                Intent intent = new Intent(MainActivity.this,Results.class);
                 startActivity(intent);
                 finish();
             }
@@ -205,5 +233,42 @@ public class MainActivity extends AppCompatActivity {
                 });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    public void saveData(String name,String time,String attempts,String res,String older){
+        try {
+            File myFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath(),"savedresult.txt");
+            myFile.createNewFile();
+            FileOutputStream fOut = new FileOutputStream(myFile);
+            OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
+            if (older.equals(""))
+                myOutWriter.write(name +"#"+ time +"#"+ attempts +"#"+ res +"\n");
+            else
+                myOutWriter.write(name +"#"+ time +"#"+ attempts +"#"+ res +"\n"+older);
+            myOutWriter.close();
+            fOut.close();
+            Log.d("Helper","Completed .......... ");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String readSavedData() {
+        String contents="";
+
+        File myFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath(),"savedresult.txt");
+        if(!myFile.exists())
+            return "";
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(myFile));
+            int c;
+            while ((c = br.read()) != -1) {
+                contents=contents+(char)c;
+            }
+        }
+        catch (IOException e) {
+            return "";
+        }
+        return contents;
     }
 }

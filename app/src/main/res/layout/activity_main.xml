@@ -193,7 +193,7 @@
             android:id="@+id/bt_results"
             android:layout_centerHorizontal="true"
             android:textSize="18sp"
-            android:text="      Play Again      "
+            android:text="      Results      "
             android:background="@drawable/btn_gradient"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

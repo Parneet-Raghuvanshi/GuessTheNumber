@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Results"
+    android:background="#000">
+
+    <TextView
+        android:textStyle="bold"
+        android:layout_margin="10dp"
+        android:id="@+id/title"
+        android:textAlignment="center"
+        android:textSize="40sp"
+        android:text="Results"
+        android:textColor="@color/colorAccent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/errorcase"
+        android:layout_centerInParent="true"
+        android:textSize="40sp"
+        android:textAlignment="center"
+        android:textColor="#fff"
+        android:text="Error\nTryAgain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_above="@+id/bt_playagain"
+        android:layout_below="@+id/title"
+        android:padding="5dp"
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <Button
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
+        android:textAllCaps="false"
+        android:id="@+id/bt_playagain"
+        android:layout_centerHorizontal="true"
+        android:textSize="18sp"
+        android:text="      Play Again      "
+        android:background="@drawable/btn_gradient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

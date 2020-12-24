@@ -2,9 +2,13 @@ package com.example.guessthenumber;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -18,6 +22,7 @@ import es.dmoral.toasty.Toasty;
 
 public class Dashboard extends AppCompatActivity {
 
+    private static final int WRITE_CODE = 100;
     EditText input;
     Button next;
     TextView tv_chnage_limit;
@@ -28,6 +33,13 @@ public class Dashboard extends AppCompatActivity {
         requestWindowFeature( Window.FEATURE_NO_TITLE);
         getWindow().setFlags( WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_dashboard);
+        
+        if(ContextCompat.checkSelfPermission(Dashboard.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(Dashboard.this,
+                    new String[] { Manifest.permission.WRITE_EXTERNAL_STORAGE },
+                    WRITE_CODE);
+        }
 
         ((MyApplication) getApplication()).setStart_lim("1");
         ((MyApplication) getApplication()).setEnd_lim("100");
