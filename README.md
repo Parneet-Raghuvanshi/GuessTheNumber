@@ -12,12 +12,14 @@ Here are some GIF to get a visual about the working of the application.
 
 # Tools/Functions Used
 
-Here are some of the coded functions and tools which are used in this application.
+Here are some of the coded functions and tools which are used in this application:
 
 - CountDownTimer used to make Timer and Update after every second.
 - `java.util.Random;` used to create a random number every time.
-- Lottie Animations used to implement these animations - [Lottie Animations](https://lottiefiles.com)
-- Implemented Splash Screen using Cold Boot Technique which loads the splash screen within the [Launch Time](https://developer.android.com/topic/performance/vitals/launch-time)
+- Lottie Animations used to implement these animations - [Lottie Animations](https://lottiefiles.com).
+- Implemented Splash Screen using Cold Boot Technique which loads the splash screen within the [Launch Time](https://developer.android.com/topic/performance/vitals/launch-time).
+- Used the usual Toast, but with steroids 💪 [GrenderG/Toasty](https://github.com/GrenderG/Toasty).
+- A perfect [CircleImageView](https://github.com/hdodenhof/CircleImageView) for round Profile Images.
 
 # Contributions
 
