@@ -10,7 +10,7 @@ Here are some GIF to get a visual about the working of the application.
 
 ![](https://media0.giphy.com/media/Nrt7m3mEYx0AkPtwUf/giphy.gif "Home Screen") ![](https://media1.giphy.com/media/p3YOIQNJJt5mIRvCmJ/giphy.gif "Number Entry") ![](https://media1.giphy.com/media/DkK4iPZMK3qJzsUKPE/giphy.gif "Success Page")
 
-# Tools/Functions Used
+# Functions/Tools Used
 
 Here are some of the coded functions and tools which are used in this application:
 
@@ -23,7 +23,7 @@ Here are some of the coded functions and tools which are used in this applicatio
 
 # Contributions
 
-Feel free to create issues and pull requests 😊
+Feel free to create issues and pull requests 😊 or [Contact Me](mailto:parneetraghuvanshi@gmail.com)
 
 ***
 
