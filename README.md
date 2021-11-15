@@ -1,5 +1,3 @@
-# Guess The Number
-
 ![](https://github.com/Parneet-Raghuvanshi/GuessTheNumber/blob/master/readmesources/Github-Projects-guessthenumber.png?raw=true "Guess The Number")
 
 # Short Summary
