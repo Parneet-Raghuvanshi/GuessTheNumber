@@ -2,9 +2,9 @@
 
 # Short Summary
 
-A very Simple Guess the number application, in this project i have used Lottie Animations for more Interactive User Interface and Used Basic Java Functions to auto generate a number and then verify that and save the results into the mobile phone's local directory.
+A very Simple Guess the number application, in this project I have used Lottie Animations for a more Interactive User Interface and Used Basic Java Functions to auto-generate a number and then verify that and save the results into the mobile phone's local directory.
 
-Here are some GIF to get a visual about the working of the application.
+Here are some GIFs to get a visual of the working of the application.
 
 ![](https://media0.giphy.com/media/Nrt7m3mEYx0AkPtwUf/giphy.gif "Home Screen") ![](https://media1.giphy.com/media/p3YOIQNJJt5mIRvCmJ/giphy.gif "Number Entry") ![](https://media1.giphy.com/media/DkK4iPZMK3qJzsUKPE/giphy.gif "Success Page")
 
@@ -12,7 +12,7 @@ Here are some GIF to get a visual about the working of the application.
 
 Here are some of the coded functions and tools which are used in this application:
 
-- CountDownTimer used to make Timer and Update after every second.
+- countdown timer is used to make a Timer and Update after every second.
 - `java.util.Random;` used to create a random number every time.
 - Lottie Animations used to implement these animations - [Lottie Animations](https://lottiefiles.com).
 - Implemented Splash Screen using Cold Boot Technique which loads the splash screen within the [Launch Time](https://developer.android.com/topic/performance/vitals/launch-time).
