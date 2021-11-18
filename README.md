@@ -27,7 +27,7 @@ Feel free to create issues and pull requests 😊 or [Contact Me](mailto:parneet
 
 <p align="center">
   <img src="https://github.com/Parneet-Raghuvanshi/GuessTheNumber/blob/master/readmesources/android-studio.png?raw=true" title="Android Studio" height="40"/>
-  <img src="https://github.com/Parneet-Raghuvanshi/GuessTheNumber/blob/master/readmesources/Git-Icon.png?raw=true" title="Git Hub" height="40"/>
+  <img src="https://github.com/Parneet-Raghuvanshi/GuessTheNumber/blob/master/readmesources/Git-Icon.png?raw=true" title="Git" height="40"/>
   <img src="https://github.com/Parneet-Raghuvanshi/GuessTheNumber/blob/master/readmesources/java.png?raw=true" title="Java" height="40"/>
   <img src="https://github.com/Parneet-Raghuvanshi/GuessTheNumber/blob/master/readmesources/xml.png?raw=true" title="XML" height="40"/>
   <img src="https://github.com/Parneet-Raghuvanshi/GuessTheNumber/blob/master/readmesources/lf_Symbol.png?raw=true" title="Lottie Files" height="40"/>
