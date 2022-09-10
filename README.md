@@ -19,7 +19,7 @@ Here are some of the coded functions and tools which are used in this applicatio
 - Used the usual Toast, but with steroids 💪 [GrenderG/Toasty](https://github.com/GrenderG/Toasty).
 - A perfect [CircleImageView](https://github.com/hdodenhof/CircleImageView) for round Profile Images.
 
-Always open for Discussion : 😊 [Parneet Raghuvanshi](mailto:parneetraghuvanshi@gmail.com)
+Always open for Discussions : 😊 [Parneet Raghuvanshi](mailto:parneetraghuvanshi@gmail.com)
 
 ***
 
